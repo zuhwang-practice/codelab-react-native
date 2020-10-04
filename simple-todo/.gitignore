@@ -16,4 +16,3 @@ web-build/
 # 추가
 yarn.lock
 package-lock.json
-.expo
