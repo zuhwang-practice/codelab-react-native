@@ -11,9 +11,9 @@ const App = () => {
   const onChangeText = (value) => {
     setInputValue(value);
   };
-  const setStorage = () => {
+  const setStorage = (newList) => {
     // todoList가 변경될때마다 AsyncStorage 업데이트
-    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(todoList));
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newList));
   };
   const onPressSubmit = () => {
     if (inputValue === '') return;
@@ -22,13 +22,15 @@ const App = () => {
       todo: inputValue,
       done: false,
     };
-    setTodoList([...todoList, newItem]);
+    const newList = [...todoList, newItem];
+    setTodoList(newList);
+    setStorage(newList);
     setInputValue('');
-    setStorage();
   };
   const onPressDelete = (id) => {
-    setTodoList(todoList.filter((list) => list.id !== id));
-    setStorage();
+    const newList = todoList.filter((list) => list.id !== id);
+    setTodoList(newList);
+    setStorage(newList);
   };
   const onPressCheck = (id) => {
     setTodoList(
